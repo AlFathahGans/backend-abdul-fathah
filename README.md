@@ -1,68 +1,44 @@
-# CodeIgniter 4 Application Starter
+## Setup Aplikasi
 
-## What is CodeIgniter?
+File SQL: File SQL database dapat ditemukan di direktori proyek: database/db_test_atsolusi.sql.
+File ini berisi struktur tabel dan data awal yang diperlukan untuk menjalankan aplikasi.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+## Cara Mengimpor Database:
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+1. Buka phpMyAdmin atau alat manajemen database lainnya.
+2. Pilih database Anda atau buat database baru.
+3. Klik tombol Import, pilih file db_test_atsolusi.sql, lalu klik Go.
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+## Setup Aplikasi
+1. Instalasi Dependency: Pastikan Anda sudah menginstal Composer. Jalankan perintah berikut:
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+composer install
 
-## Installation & updates
+Menjalankan Server Development: 
+Jalankan perintah:
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+php spark serve
+Akses aplikasi di http://localhost:8080.
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+## Uji Coba POSTMAN :
 
-## Setup
+1. Register :
+   ![Register](https://github.com/user-attachments/assets/af7a5329-3306-428f-b7cf-b5d395adc30b)
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+2. Login :
+   ![Login](https://github.com/user-attachments/assets/0f806039-f1b3-4fad-b15f-7fee9a4c21a5)
 
-## Important Change with index.php
+3. Data Product :
+   ![GetAllProduct](https://github.com/user-attachments/assets/2b89e59d-88f3-4b5d-83cd-68bf354940d9)
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+4. Create Product :
+   ![Create Product](https://github.com/user-attachments/assets/6eb33e85-f1a4-43c6-b241-05e6b90f36c5)
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+5. Update Product :
+   ![Update Product](https://github.com/user-attachments/assets/04d9b1fd-1376-4fe0-b0aa-1395c6590446)
 
-**Please** read the user guide for a better explanation of how CI4 works!
+6. Delete Product :
+   ![Delete Product](https://github.com/user-attachments/assets/8ced5873-80f7-4704-bc57-021a9fa7b6bf)
 
-## Repository Management
-
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
-
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
-
-## Server Requirements
-
-PHP version 7.4 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-
-> [!WARNING]
-> The end of life date for PHP 7.4 was November 28, 2022.
-> The end of life date for PHP 8.0 was November 26, 2023.
-> If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> The end of life date for PHP 8.1 will be November 25, 2024.
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+7. Transaksi :
+   ![Transaction](https://github.com/user-attachments/assets/6da676f8-14e9-4f57-af27-c2de428d8994)
