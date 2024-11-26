@@ -15,6 +15,11 @@ class AuthController extends BaseController
         helper('jwt_helper');
     }
 
+    public function index()
+    {
+        return view('auth/login');
+    }
+
     public function login()
     {
         $credentials = $this->request->getJSON();
@@ -39,10 +44,39 @@ class AuthController extends BaseController
             'role' => $user['role'],
         ]);
 
+        // Mendapatkan informasi tambahan berdasarkan role
+        $additionalData = [];
+        if ($user['role'] == 'merchant') {
+            // Ambil data merchant tambahan
+            $merchantModel = new \App\Models\MerchantModel();
+            $merchant = $merchantModel->where('user_id', $user['id'])->first();
+            $additionalData = ['store_name' => $merchant['store_name']];
+        } elseif ($user['role'] == 'customer') {
+            // Ambil data customer tambahan
+            $customerModel = new \App\Models\CustomerModel();
+            $customer = $customerModel->where('user_id', $user['id'])->first();
+            $additionalData = ['full_name' => $customer['full_name']];
+        }
+
+        // Simpan informasi user dan tambahan data ke dalam session
+        session()->set([
+            'id' => $user['id'],
+            'role' => $user['role'],
+            'email' => $user['email'], // Bisa juga ditambahkan email untuk keperluan lain
+        ] + $additionalData);
+
         return $this->response
         ->setStatusCode(200)
-        ->setJSON(['token' => $jwt, 'message' => 'Login successful']);
+        ->setJSON([
+            'token' => $jwt,
+            'message' => 'Login successful',
+            'redirect' => $user['role'] === 'merchant' ? base_url('/products/merchant') : base_url('/products/customer'),
+        ]);
+    }
 
+    public function form_register()
+    {
+        return view('auth/register');
     }
 
     public function register()
@@ -108,8 +142,18 @@ class AuthController extends BaseController
 
         return $this->response
             ->setStatusCode(201)
-            ->setJSON(['message' => 'User registered successfully']);
+            ->setJSON(['message' => 'User registered successfully', 'redirect' => base_url('/')]);
     }
 
+    public function logout()
+    {
+        // Hapus session pengguna
+        session()->destroy();
+
+        // Mengembalikan respon logout berhasil
+        return $this->response
+            ->setStatusCode(200)
+            ->setJSON(['message' => 'Logout successful']);
+    }
 
 }

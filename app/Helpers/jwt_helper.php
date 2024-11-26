@@ -15,7 +15,7 @@ function generateJWT($data)
         'iss' => base_url(),
         'aud' => base_url(),
         'iat' => time(),
-        'exp' => time() + 3600, // 1 hour expiration
+        // 'exp' => time() + 3600, // 1 hour expiration
         'data' => $data
     ];
     return JWT::encode($payload, $key, 'HS256');

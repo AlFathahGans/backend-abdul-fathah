@@ -10,6 +10,7 @@ class MerchantModel extends Model
     protected $primaryKey = 'id';
     
     protected $allowedFields = [
+        'id',
         'user_id', 
         'store_name', 
         'store_address', 

@@ -14,9 +14,8 @@ class TransactionModel extends Model
         'merchant_id',
         'quantity',
         'total_price',
-        'shipping_cost',
+        'shipping_fee',
         'discount',
-        'final_price',
     ];
     protected $useTimestamps = true; // Menggunakan kolom created_at dan updated_at
 }

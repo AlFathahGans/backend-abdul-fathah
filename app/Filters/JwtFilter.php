@@ -1,50 +1,41 @@
 <?php
  
-namespace App\Filters;
- 
-use CodeIgniter\Filters\FilterInterface;
-use CodeIgniter\HTTP\RequestInterface;
-use CodeIgniter\HTTP\ResponseInterface;
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
- 
-class JwtFilter implements FilterInterface
-{
+ namespace App\Filters;
 
-    public function before(RequestInterface $request, $arguments = null)
-    {
-        $key = getenv('JWT_SECRET');
-        $header = $request->getHeader("Authorization");
-        $token = null;
-  
-        // extract the token from the header
-        if(!empty($header)) {
-            if (preg_match('/Bearer\s(\S+)/', $header, $matches)) {
-                $token = $matches[1];
-            }
-        }
-  
-        // check if token is null or empty
-        if(is_null($token) || empty($token)) {
-            $response = service('response');
-            $response->setBody('Access denied');
-            $response->setStatusCode(401);
-            return $response;
-        }
-  
-        try {
-            // $decoded = JWT::decode($token, $key, array("HS256"));
-            $decoded = JWT::decode($token, new Key($key, 'HS256'));
-        } catch (Exception $ex) {
-            $response = service('response');
-            $response->setBody('Access denied');
-            $response->setStatusCode(401);
-            return $response;
-        }
-    }
-    
-    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
-    {
-        //
-    }
-}
+ use CodeIgniter\Filters\FilterInterface;
+ use CodeIgniter\HTTP\RequestInterface;
+ use CodeIgniter\HTTP\ResponseInterface;
+ use Firebase\JWT\JWT;
+ use Firebase\JWT\Key;
+ use Config\Services;
+ 
+ class JWTFilter implements FilterInterface
+ {
+     public function before(RequestInterface $request, $arguments = null)
+     {
+         $authHeader = $request->getHeaderLine('Authorization');
+         if (!$authHeader || !str_starts_with($authHeader, 'Bearer ')) {
+             return Services::response()
+                 ->setJSON(['message' => 'Access denied, missing or invalid token.'])
+                 ->setStatusCode(401);
+         }
+ 
+         $token = str_replace('Bearer ', '', $authHeader);
+         try {
+             $key = getenv('JWT_SECRET');
+             $decoded = JWT::decode($token, new Key($key, 'HS256'));
+             // Token valid, Anda dapat menyimpan data user di request
+             $request->user = $decoded;
+         } catch (\Exception $e) {
+             return Services::response()
+                 ->setJSON(['message' => 'Access denied, token invalid.'])
+                 ->setStatusCode(401);
+         }
+     }
+ 
+     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
+     {
+         // Tidak ada aksi setelah request selesai
+     }
+ }
+ 

@@ -12,6 +12,7 @@ class ProductModel extends Model
         'merchant_id',
         'name',
         'description',
+        'image',
         'price',
         'stock',
     ];
