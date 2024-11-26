@@ -1,15 +1,20 @@
-## Setup Aplikasi
+## SETUP APLIKASI
 
 File SQL: File SQL database dapat ditemukan di direktori proyek: database/db_test_atsolusi.sql.
 File ini berisi struktur tabel dan data awal yang diperlukan untuk menjalankan aplikasi.
 
-## Cara Mengimpor Database:
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## CARA IMPORT DATABASE
 
 1. Buka phpMyAdmin atau alat manajemen database lainnya.
 2. Pilih database Anda atau buat database baru.
 3. Klik tombol Import, pilih file db_test_atsolusi.sql, lalu klik Go.
 
-## Setup Aplikasi
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+## JIKA ADA MASALAH PADA IMPORT DATABASE LIHAT FOLDER DATABASE/DUMPSQL
+
+## SETUP APLIKASI
 1. Instalasi Dependency: Pastikan Anda sudah menginstal Composer. Jalankan perintah berikut:
 
 composer install
@@ -20,7 +25,9 @@ Jalankan perintah:
 php spark serve
 Akses aplikasi di http://localhost:8080.
 
-## Uji Coba POSTMAN :
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## UJI COBA POSTMAN
 
 1. Register :
    ![Register](https://github.com/user-attachments/assets/af7a5329-3306-428f-b7cf-b5d395adc30b)
@@ -42,3 +49,5 @@ Akses aplikasi di http://localhost:8080.
 
 7. Transaksi :
    ![Transaction](https://github.com/user-attachments/assets/6da676f8-14e9-4f57-af27-c2de428d8994)
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
